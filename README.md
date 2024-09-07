@@ -13,7 +13,7 @@
 
     ```bash
     git clone https://github.com/ofu-hub/TestBook.git
-    cd book-manager
+    cd TestBook
     ```
 
 2. **Установите зависимости:**
