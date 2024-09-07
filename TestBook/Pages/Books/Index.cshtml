@@ -1,0 +1,56 @@
+﻿@page
+@model TestBook.Pages.Books.IndexModel
+@{
+    ViewData["Title"] = "Список книг";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Поисковая форма -->
+<form method="get">
+    <div class="form-group">
+        <input type="text" name="SearchTitle" value="@Model.SearchTitle" class="form-control" placeholder="Поиск по названию">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Поиск</button>
+    </div>
+</form>
+
+<!-- Кнопки для сортировки -->
+<p>
+    Сортировать по: 
+    <a asp-page="./Index" asp-route-SortOrder="author">Автору</a> | 
+    <a asp-page="./Index" asp-route-SortOrder="date">Дате публикации</a> | 
+    <a asp-page="./Index" asp-route-SortOrder="date_desc">Дате публикации (по убыванию)</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Дата публикации</th>
+            <th>Доступность</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var book in Model.Books)
+    {
+        <tr>
+            <td>@book.Id</td>
+            <td>@book.Title</td>
+            <td>@book.Author</td>
+            <td>@book.PublishedDate.ToShortDateString()</td>
+            <td>@book.IsAvailable</td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@book.Id">Редактировать</a> |
+                <a asp-page="./Delete" asp-route-id="@book.Id">Удалить</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a asp-page="./Create" class="btn btn-primary">Добавить книгу</a>
